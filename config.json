@@ -1,0 +1,17 @@
+{
+    "level":{
+        "0": "blue rare",
+        "1": "rare",
+        "2": "medium rare",
+        "3": "medium",
+        "4": "medium well",
+        "5": "well done",
+        "highest": "5"
+    },
+
+    "image_settings":{
+        "width": 200,
+        "height": 150,
+        "depth": 3
+    }
+}

@@ -45,34 +45,10 @@
                     success: function(result) {
                         console.log(result);
 
-                        var class_type = "";
+                        var CONFIDENCE = Math.round(result['results_score'] * 100) / 100;
                         var LABEL = result['type'];
 
-                        if (LABEL == "blue rare") {
-                            class_type = "primary";
-                        }
-
-                        if (LABEL == "rare") {
-                            class_type = "warning";
-                        }
-
-                        if (LABEL == "medium rare") {
-                            class_type = "warning";
-                        }
-
-                        if (LABEL == "medium") {
-                            class_type = "warning";
-                        }
-
-                        if (LABEL == "medium well") {
-                            class_type = "danger";
-                        }
-
-                        if (LABEL == "well done") {
-                            class_type = "normal";
-                        }
-
-                        var HTMLDUMP = 'ME THINK ITS <span class="label label-' + class_type + '">' + LABEL.toUpperCase() + '</span>';
+                        var HTMLDUMP = CONFIDENCE + '% chance it\'s <strong>' + LABEL + '</strong>';
 
                         $('#result_div').html(HTMLDUMP);
                     }
