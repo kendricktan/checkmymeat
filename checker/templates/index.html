@@ -37,6 +37,7 @@
                 image.setAttribute('width', 250);
                 image.src = $('#id_image_url').val();
                 $("#image_div").html(image);
+                $('#result_div').html('');
 
                 $.ajax({
                     url: '/',
@@ -45,12 +46,14 @@
                     success: function(result) {
                         console.log(result);
 
-                        var CONFIDENCE = Math.round(result['results_score'] * 100) / 100;
                         var LABEL = result['type'];
 
-                        var HTMLDUMP = CONFIDENCE + '% chance it\'s <strong>' + LABEL + '</strong>';
+                        var HTMLDUMP = 'The trees think it\'s <strong>' + LABEL + '</strong>';
 
                         $('#result_div').html(HTMLDUMP);
+                    },
+                    error: function(result) {
+                        $('#result_div').html('403 Forbidden to access image from server');
                     }
                 });
             });

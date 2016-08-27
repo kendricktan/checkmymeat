@@ -1,17 +1,15 @@
 {
-    "level":{
-        "0": "blue rare",
-        "1": "rare",
-        "2": "medium rare",
-        "3": "medium",
-        "4": "medium well",
-        "5": "well done",
-        "highest": "5"
+    "level": {
+        "0": "sausage",
+        "1": "steak",
+        "highest": "1"
     },
 
-    "image_settings":{
-        "width": 200,
-        "height": 150,
+    "image_settings": {
+        "width": 227,
+        "height": 227,
         "depth": 3
-    }
+    },
+
+    "cnn_name": "meatmodel"
 }
