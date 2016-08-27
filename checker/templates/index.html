@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+</head>
+
+<body style="padding-top: 50px">
+    <div class="container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form id="url_form">
+                {% csrf_token %}
+                <p><input type="text" class="form-control" placeholder="Image URL" name="image_url" id="id_image_url" /></p>
+                <p><input class="btn btn-default btn-block" type="submit" value="Check my meat!" /></p>
+            </form>
+
+            <hr/>
+            <div id="image_div" style="text-align: center">
+            </div>
+
+            <br/>
+            <div id="result_div" style="text-align: center; font-size: 15px">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            $("#url_form").on('submit', function(event) {
+                event.preventDefault();
+                console.log($(this).serialize());
+
+                // Set image dic to display an image
+                var image = document.createElement("IMG");
+                image.alt = "MEAT";
+                image.setAttribute('width', 250);
+                image.src = $('#id_image_url').val();
+                $("#image_div").html(image);
+
+                $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        console.log(result);
+
+                        var class_type = "";
+                        var LABEL = result['type'];
+
+                        if (LABEL == "blue rare") {
+                            class_type = "primary";
+                        }
+
+                        if (LABEL == "rare") {
+                            class_type = "warning";
+                        }
+
+                        if (LABEL == "medium rare") {
+                            class_type = "warning";
+                        }
+
+                        if (LABEL == "medium") {
+                            class_type = "warning";
+                        }
+
+                        if (LABEL == "medium well") {
+                            class_type = "danger";
+                        }
+
+                        if (LABEL == "well done") {
+                            class_type = "normal";
+                        }
+
+                        var HTMLDUMP = 'ME THINK ITS <span class="label label-' + class_type + '">' + LABEL.toUpperCase() + '</span>';
+
+                        $('#result_div').html(HTMLDUMP);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
