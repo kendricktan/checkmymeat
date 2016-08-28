@@ -61,7 +61,12 @@ def predict(url):
     ret, mask = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
     mask = cv2.medianBlur(mask, 5)
 
+    # Get features
     features = describe(image, mask)
 
-    state = le.inverse_transform(model.predict([features]))[0]
-    return {'type': state}    
+    # Predict it
+    result = model.predict([features])
+    probability = model.predict_proba([features])[0][result][0]    
+    print(model.predict_proba([features])[0][result][0])
+    state = le.inverse_transform(result)[0]
+    return {'type': state, 'confidence': probability}    

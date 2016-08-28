@@ -47,8 +47,9 @@
                         console.log(result);
 
                         var LABEL = result['type'];
+                        var CONFIDENCE = Math.round(result['confidence']*10000)/100;                        
 
-                        var HTMLDUMP = 'The trees think it\'s <strong>' + LABEL + '</strong>';
+                        var HTMLDUMP = 'The trees think it\'s <strong>' + LABEL + '</strong>, with a confidence of ' + CONFIDENCE + '% ';
 
                         $('#result_div').html(HTMLDUMP);
                     },
