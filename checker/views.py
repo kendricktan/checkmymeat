@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from django.http import JsonResponse
 from checker.forms import ImageForm
 import checker.forest as forest
@@ -17,6 +19,7 @@ def ColorDistance(rgb1,rgb2):
     return d
 
 # Create your views here.
+@csrf_exempt
 def index_view(request):
     if request.method == 'POST':        
         url = request.POST['image_url']                
