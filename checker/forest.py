@@ -66,7 +66,6 @@ def predict(url):
 
     # Predict it
     result = model.predict([features])
-    probability = model.predict_proba([features])[0][result][0]    
-    print(model.predict_proba([features])[0][result][0])
+    probability = model.predict_proba([features])[0][result][0]        
     state = le.inverse_transform(result)[0]
     return {'type': state, 'confidence': probability}    
