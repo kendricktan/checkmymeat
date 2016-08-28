@@ -6,6 +6,7 @@ from sklearn.metrics import classification_report
 from sklearn import cross_validation
 from sklearn.svm import SVC
 
+import random
 import cv2, glob
 import numpy as np
 
@@ -49,8 +50,33 @@ trainData, testData, trainTarget, testTarget = cross_validation.train_test_split
 model.fit(trainData, trainTarget)
 #print(classification_report(testTarget, model.predict(testData), target_names = targetNames))
 
+COOKED_PHRASES= [
+    'juicy af',
+    'tender lookin',
+    'meaty',
+    'mouthful',
+    'spayed meridian',
+    'tolu frontrunner',
+    'underworld trawler',
+    'sinning antinucleon',
+    'burning radiocarbon',
+    
+]
+
+RAW_PHRASES = [
+    'burnt out',
+    'as raw as a meme',    
+    'ghostly nitrite',
+    'pulsed curare',
+    'shapelessly hammerer',
+    'tart whirring',
+    'lobster triliteral',
+    'bad tattoo',
+    'bad taxidermy',
+]
+
 def predict(url):
-    global model      
+    global model, COOKED_PHRASES, RAW_PHRASES   
     # Read image
     image = io.imread(url)
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
@@ -68,4 +94,12 @@ def predict(url):
     result = model.predict([features])
     probability = model.predict_proba([features])[0][result][0]        
     state = le.inverse_transform(result)[0]
-    return {'type': state, 'confidence': probability}    
+
+    phrase = ''
+
+    if 'cook' in state:
+        phrase = COOKED_PHRASES[int(random.random()*len(COOKED_PHRASES))]
+    elif 'raw' in state:
+        phrase = RAW_PHRASES[int(random.random()*len(RAW_PHRASES))]
+
+    return {'type': state, 'confidence': probability, 'phrase': phrase}    
